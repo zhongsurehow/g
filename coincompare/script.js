@@ -7,119 +7,58 @@ let sortConfig = {
 let refreshInterval = null;
 let isLoading = false;
 
-// 包含中文名称的静态加密货币列表
-const staticCryptos = [
-    { name: '比特币', symbol: 'BTC' },
-    { name: '以太坊', symbol: 'ETH' },
-    { name: '币安币', symbol: 'BNB' },
-    { name: '瑞波币', symbol: 'XRP' },
-    { name: '索拉纳', symbol: 'SOL' },
-    { name: '卡尔达诺', symbol: 'ADA' },
-    { name: '狗狗币', symbol: 'DOGE' },
-    { name: '波卡', symbol: 'DOT' },
-    { name: '莱特币', symbol: 'LTC' },
-    { name: '雪崩', symbol: 'AVAX' },
-    { name: '链接', symbol: 'LINK' },
-    { name: '波场', symbol: 'TRX' },
-    { name: '近似协议', symbol: 'NEAR' },
-    { name: '柚子', symbol: 'EOS' },
-    { name: '沙盒', symbol: 'SAND' },
-    { name: '宇宙', symbol: 'ATOM' },
-    { name: '多边形', symbol: 'MATIC' },
-    { name: '阿尔格兰德', symbol: 'ALGO' },
-    { name: '基本注意力通证', symbol: 'BAT' },
-    { name: '恒星币', symbol: 'XLM' },
-    { name: '柴犬币', symbol: 'SHIB' },
-    { name: '文件币', symbol: 'FIL' },
-    { name: '达世币', symbol: 'DASH' },
-    { name: '门罗币', symbol: 'XMR' },
-    { name: '泰达币', symbol: 'USDT' },
-    { name: '美元币', symbol: 'USDC' },
-    { name: '以太坊经典', symbol: 'ETC' },
-    { name: '比特币现金', symbol: 'BCH' },
-    { name: '兹卡什', symbol: 'ZEC' },
-    { name: '埃欧塔', symbol: 'IOTA' },
-    { name: '图灵币', symbol: 'TRB' },
-    { name: '1英寸', symbol: '1INCH' },
-    { name: '雷达币', symbol: 'RUNE' },
-    { name: '合成代币', symbol: 'SNX' },
-    { name: '复合币', symbol: 'COMP' },
-    { name: '曲线DAO代币', symbol: 'CRV' },
-    { name: '去中心化交易所', symbol: 'DEX' },
-    { name: '非同质化代币', symbol: 'NFT' },
-    { name: '元宇宙币', symbol: 'META' },
-    { name: '人工智能币', symbol: 'AI' },
-    { name: '游戏代币', symbol: 'GAME' },
-    { name: '隐私币', symbol: 'PRIV' },
-    { name: '绿色能源币', symbol: 'GREEN' },
-    { name: '医疗健康币', symbol: 'HEALTH' },
-    { name: '供应链币', symbol: 'SUPPLY' },
-    { name: '身份验证币', symbol: 'ID' },
-    { name: '预言机币', symbol: 'ORACLE' },
-    { name: '存储币', symbol: 'STORAGE' },
-    { name: '互联网币', symbol: 'WEB3' },
-    { name: '社交媒体币', symbol: 'SOCIAL' },
-    { name: '音乐币', symbol: 'MUSIC' },
-    { name: '艺术币', symbol: 'ART' },
-    { name: '体育币', symbol: 'SPORTS' },
-    { name: '旅游币', symbol: 'TRAVEL' },
-    { name: '教育币', symbol: 'EDU' },
-    { name: '金融科技币', symbol: 'FINTECH' },
-    { name: '保险币', symbol: 'INSUR' },
-    { name: '法律币', symbol: 'LEGAL' },
-    { name: '房地产币', symbol: 'REALESTATE' },
-    { name: '慈善币', symbol: 'CHARITY' },
-    { name: '农业币', symbol: 'AGRI' },
-    { name: '零知识证明币', symbol: 'ZK' },
-    { name: '区块链安全币', symbol: 'SECURITY' },
-    { name: '去中心化自治组织', symbol: 'DAO' },
-    { name: '去中心化身份', symbol: 'DID' },
-    { name: '去中心化金融', symbol: 'DEFI' },
-    { name: '去中心化存储', symbol: 'DSTORAGE' },
-    { name: '去中心化计算', symbol: 'DCOMPUTE' },
-    { name: '去中心化保险', symbol: 'DINSURANCE' },
-    { name: '去中心化借贷', symbol: 'DLENDING' },
-    { name: '去中心化交易', symbol: 'DTRADING' },
-    { name: '去中心化预测', symbol: 'DPREDICTION' },
-    { name: '去中心化社交', symbol: 'DSOCIAL' },
-    { name: '去中心化游戏', symbol: 'DGAMING' },
-    { name: '去中心化艺术', symbol: 'DART' },
-    { name: '去中心化音乐', symbol: 'DMUSIC' },
-    { name: '去中心化视频', symbol: 'DVIDEO' },
-    { name: '去中心化内容', symbol: 'DCONTENT' },
-    { name: '去中心化广告', symbol: 'DAD' },
-    { name: '去中心化市场', symbol: 'DMARKET' },
-    { name: '去中心化旅游', symbol: 'DTRAVEL' },
-    { name: '去中心化医疗', symbol: 'DHEALTH' },
-    { name: '去中心化教育', symbol: 'DEDU' },
-    { name: '去中心化能源', symbol: 'DENERGY' },
-    { name: '去中心化供应链', symbol: 'DSUPPLY' },
-    { name: '去中心化物联网', symbol: 'DIOT' },
-    { name: '去中心化人工智能', symbol: 'DAI' },
-    { name: '去中心化元宇宙', symbol: 'DMETA' },
-    { name: '去中心化虚拟现实', symbol: 'DVR' },
-    { name: '去中心化增强现实', symbol: 'DAR' },
-    { name: '跨链协议', symbol: 'CROSS' },
-    { name: '闪电网络', symbol: 'LIGHTNING' },
-    { name: '量子抗性', symbol: 'QUANTUM' },
-    { name: '碳中和币', symbol: 'CARBON' },
-    { name: '数据隐私', symbol: 'PRIVACY' },
-    { name: '智能合约平台', symbol: 'SMART' },
-    { name: '去中心化云存储', symbol: 'DCLOUD' },
-    { name: '去中心化域名', symbol: 'DDNS' },
-    { name: '去中心化通信', symbol: 'DCOMM' },
-    { name: '去中心化身份验证', symbol: 'DAUTH' },
-    { name: '去中心化投票', symbol: 'DVOTE' },
-    { name: '去中心化治理', symbol: 'DGOV' },
-    { name: '去中心化审计', symbol: 'DAUDIT' },
-    { name: '去中心化法律', symbol: 'DLAW' },
-    { name: '去中心化名誉', symbol: 'DREP' },
-    { name: '去中心化数据分析', symbol: 'DDATA' },
-    { name: '去中心化预言机', symbol: 'DORACLE' },
-    { name: '去中心化交叉链', symbol: 'DCROSS' },
-    { name: '去中心化流动性', symbol: 'DLIQUIDITY' },
-    { name: '灵知', symbol: 'GNO' }
-];
+// 中文名称映射表
+const chineseNameMap = {
+    "btc": "比特币",
+    "eth": "以太坊",
+    "usdt": "泰达币",
+    "bnb": "币安币",
+    "sol": "索拉纳",
+    "xrp": "瑞波币",
+    "usdc": "美元币",
+    "ada": "卡尔达诺",
+    "doge": "狗狗币",
+    "avax": "雪崩",
+    "shib": "柴犬币",
+    "dot": "波卡",
+    "link": "链接",
+    "trx": "波场",
+    "bch": "比特币现金",
+    "near": "近似协议",
+    "ltc": "莱特币",
+    "matic": "多边形",
+    "atom": "宇宙",
+    "etc": "以太坊经典",
+    "xlm": "恒星币",
+    "xmr": "门罗币",
+    "fil": "文件币",
+    "cro": "Cronos",
+    "wbtc": "包装比特币",
+    "algo": "阿尔格兰德",
+    "vet": "唯链",
+    "icp": "互联网计算机",
+    "sand": "沙盒",
+    "gala": "Gala",
+    "axs": "Axie Infinity",
+    "mana": "Decentraland",
+    "kcs": "KuCoin Token",
+    "ftt": "FTX Token",
+    "egld": "MultiversX",
+    "hnt": "Helium",
+    "xtz": "Tezos",
+    "grt": "The Graph",
+    "mkr": "Maker",
+    "aave": "Aave",
+    "comp": "Compound",
+    "snx": "Synthetix",
+    "crv": "Curve DAO",
+    "uni": "Uniswap",
+    "sushi": "SushiSwap",
+    "cake": "PancakeSwap",
+    "1inch": "1inch",
+    "gno": "灵知"
+};
+
 
 // 页面加载完成后执行
 document.addEventListener('DOMContentLoaded', () => {
@@ -178,7 +117,7 @@ function setAutoRefresh(seconds) {
     }
 }
 
-// 从CoinGecko API获取数据并与静态列表结合
+// 从CoinGecko API获取数据并结合中文名称
 async function fetchData() {
     if (isLoading) return;
     
@@ -187,46 +126,34 @@ async function fetchData() {
     hideError();
     
     try {
-        const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false');
+        const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=150&page=1&sparkline=false');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const apiData = await response.json();
         
-        // 创建一个价格映射以便快速查找
-        const priceMap = apiData.reduce((map, crypto) => {
-            map[crypto.symbol.toLowerCase()] = crypto.current_price;
-            return map;
-        }, {});
+        // 使用API返回的数据作为基础，保证所有显示的货币都有价格
+        cryptoData = apiData.map(crypto => {
+            const symbolLower = crypto.symbol.toLowerCase();
+            const basePrice = crypto.current_price;
 
-        // 使用静态列表来构建最终数据，保证中文名称和顺序
-        cryptoData = staticCryptos.map(staticCrypto => {
-            const symbolLower = staticCrypto.symbol.toLowerCase();
-            const basePrice = priceMap[symbolLower];
+            // 检查是否有中文名称，否则使用API提供的英文名称
+            const name = chineseNameMap[symbolLower] || crypto.name;
 
-            // 如果能从API找到价格，则生成模拟价格；否则所有价格为null
-            if (basePrice) {
-                const variation = () => (Math.random() - 0.5) * basePrice * 0.02; // 最大±1%的差异
-                return {
-                    name: staticCrypto.name,
-                    symbol: staticCrypto.symbol,
-                    binance: basePrice + variation(),
-                    okx: basePrice + variation(),
-                    mexc: basePrice + variation(),
-                    gate: basePrice + variation(),
-                    kucoin: basePrice + variation(),
-                    bitget: basePrice + variation(),
-                    bybit: basePrice + variation(),
-                    htx: basePrice + variation()
-                };
-            } else {
-                return {
-                    name: staticCrypto.name,
-                    symbol: staticCrypto.symbol,
-                    binance: null, okx: null, mexc: null, gate: null,
-                    kucoin: null, bitget: null, bybit: null, htx: null
-                };
-            }
+            const variation = () => (Math.random() - 0.5) * basePrice * 0.02; // 最大±1%的差异
+
+            return {
+                name: name,
+                symbol: crypto.symbol.toUpperCase(),
+                binance: basePrice + variation(),
+                okx: basePrice + variation(),
+                mexc: basePrice + variation(),
+                gate: basePrice + variation(),
+                kucoin: basePrice + variation(),
+                bitget: basePrice + variation(),
+                bybit: basePrice + variation(),
+                htx: basePrice + variation()
+            };
         });
         
         // 更新表格
