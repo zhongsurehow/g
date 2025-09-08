@@ -64,7 +64,7 @@ function setAutoRefresh(seconds) {
     }
 }
 
-// 从各交易所API获取数据
+// 从CoinGecko API获取数据
 async function fetchData() {
     if (isLoading) return;
     
@@ -73,15 +73,25 @@ async function fetchData() {
     hideError();
     
     try {
-        // 在实际应用中，这里应该调用各交易所的API
-        // 由于跨域限制和API密钥要求，这里使用模拟数据
-        // 实际实现时，应该使用后端服务来聚合各交易所的数据
+        const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const apiData = await response.json();
         
-        // 模拟API调用延迟
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        // 获取模拟数据
-        cryptoData = getMockData();
+        // 转换API数据为应用所需格式
+        cryptoData = apiData.map(crypto => ({
+            name: crypto.name,
+            symbol: crypto.symbol.toUpperCase(), // API返回小写，统一为大写
+            binance: crypto.current_price, // 将价格放在Binance列
+            okx: null,
+            mexc: null,
+            gate: null,
+            kucoin: null,
+            bitget: null,
+            bybit: null,
+            htx: null
+        }));
         
         // 更新表格
         updateTable();
@@ -140,12 +150,12 @@ function updateTable() {
             crypto.bitget,
             crypto.bybit,
             crypto.htx
-        ].filter(price => price !== null);
+        ].filter(price => price !== null && isFinite(price));
         
-        const maxPrice = Math.max(...prices);
-        const minPrice = Math.min(...prices);
+        const maxPrice = prices.length > 0 ? Math.max(...prices) : 0;
+        const minPrice = prices.length > 0 ? Math.min(...prices) : 0;
         const spread = maxPrice - minPrice;
-        const spreadPercentage = ((spread / minPrice) * 100).toFixed(2);
+        const spreadPercentage = (minPrice > 0) ? ((spread / minPrice) * 100).toFixed(2) : "0.00";
         
         // 创建单元格并添加高亮
         row.innerHTML = `
@@ -161,7 +171,7 @@ function updateTable() {
             ${createPriceCell(crypto.bitget, maxPrice, minPrice)}
             ${createPriceCell(crypto.bybit, maxPrice, minPrice)}
             ${createPriceCell(crypto.htx, maxPrice, minPrice)}
-            <td class="price-spread">${spread.toFixed(6)} (${spreadPercentage}%)</td>
+            <td class="price-spread">${spread > 0 ? spread.toFixed(6) : '0.00'} (${spreadPercentage}%)</td>
         `;
         
         tableBody.appendChild(row);
@@ -170,18 +180,19 @@ function updateTable() {
 
 // 创建价格单元格HTML，添加高亮
 function createPriceCell(price, maxPrice, minPrice) {
-    if (price === null) {
+    if (price === null || !isFinite(price)) {
         return '<td>-</td>';
     }
     
     let className = '';
-    if (price === maxPrice) {
+    // Since we only have one price source, highlight will not be shown
+    if (price === maxPrice && price !== minPrice) {
         className = 'price-high';
-    } else if (price === minPrice) {
+    } else if (price === minPrice && price !== maxPrice) {
         className = 'price-low';
     }
     
-    return `<td class="${className}">${price.toFixed(6)}</td>`;
+    return `<td class="${className}">${parseFloat(price).toFixed(6)}</td>`;
 }
 
 // 根据搜索框过滤数据
@@ -218,17 +229,17 @@ function sortDataByConfig(data) {
             // 计算价差
             const pricesA = [
                 a.binance, a.okx, a.mexc, a.gate, a.kucoin, a.bitget, a.bybit, a.htx
-            ].filter(price => price !== null);
+            ].filter(price => price !== null && isFinite(price));
             const pricesB = [
                 b.binance, b.okx, b.mexc, b.gate, b.kucoin, b.bitget, b.bybit, b.htx
-            ].filter(price => price !== null);
+            ].filter(price => price !== null && isFinite(price));
             
-            valueA = Math.max(...pricesA) - Math.min(...pricesA);
-            valueB = Math.max(...pricesB) - Math.min(...pricesB);
+            valueA = pricesA.length > 0 ? Math.max(...pricesA) - Math.min(...pricesA) : 0;
+            valueB = pricesB.length > 0 ? Math.max(...pricesB) - Math.min(...pricesB) : 0;
         } else {
             // 对于交易所价格列
-            valueA = a[sortConfig.column] === null ? -Infinity : a[sortConfig.column];
-            valueB = b[sortConfig.column] === null ? -Infinity : b[sortConfig.column];
+            valueA = a[sortConfig.column] === null || !isFinite(a[sortConfig.column]) ? -Infinity : a[sortConfig.column];
+            valueB = b[sortConfig.column] === null || !isFinite(b[sortConfig.column]) ? -Infinity : b[sortConfig.column];
         }
         
         // 比较
