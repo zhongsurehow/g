@@ -55,33 +55,73 @@ p {
     transform: translateY(-2px);
 }
 
-#card-display {
+#card-display-container {
+    perspective: 1500px;
     margin-top: 20px;
-    padding: 20px;
-    border: 1px dashed #4a5a8a;
-    border-radius: 10px;
-    background-color: #1f4068;
+    width: 300px;
+    height: 500px;
 }
 
-#card-display.hidden {
+#card-display-container.hidden {
     display: none;
+}
+
+.card-flipper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.9s;
+    transform-style: preserve-3d;
+}
+
+.card-flipper.flipped {
+    transform: rotateY(180deg);
+}
+
+.card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.card-back {
+    background-color: #162447;
+    border: 3px solid #4a5a8a;
+}
+
+.card-back img {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.card-front {
+    background-color: #1f4068;
+    transform: rotateY(180deg);
+    padding: 20px;
+    overflow-y: auto;
+    border: 1px dashed #4a5a8a;
+    box-sizing: border-box; /* Ensure padding is included in the element's total width and height */
 }
 
 #card-name {
     color: #fca311;
-    font-size: 1.8em;
-    margin-bottom: 15px;
+    font-size: 1.5em;
+    margin-bottom: 10px;
 }
 
 #card-image {
-    max-width: 200px;
-    height: 300px; /* Set a fixed height to match placeholder */
+    width: 100%;
+    max-width: 250px;
+    height: auto;
     border-radius: 10px;
     border: 3px solid #e0e0e0;
-    margin-bottom: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    background-color: #333; /* Background for when image is loading */
-    object-fit: cover; /* Ensure the image covers the area well */
+    margin: 0 auto 15px;
+    display: block;
 }
 
 #card-interpretation h3,

@@ -1,15 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
     const drawButton = document.getElementById('draw-card-btn');
-    const cardDisplay = document.getElementById('card-display');
+    const cardDisplayContainer = document.getElementById('card-display-container');
+    const cardFlipper = document.querySelector('.card-flipper');
+
+    // Card front elements
     const cardName = document.getElementById('card-name');
     const cardImage = document.getElementById('card-image');
     const cardDescription = document.getElementById('card-description');
+    const uprightHeader = document.getElementById('upright-header');
     const uprightMeaningEl = document.getElementById('upright-meaning');
+    const reversedHeader = document.getElementById('reversed-header');
     const reversedMeaningEl = document.getElementById('reversed-meaning');
-    const uprightHeader = uprightMeaningEl.previousElementSibling;
-    const reversedHeader = reversedMeaningEl.previousElementSibling;
 
     let cardsData = [];
+    let isCardShowing = false;
 
     // Fetch card data from JSON file
     fetch('cards.json')
@@ -28,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
             container.innerHTML = '<h1>Error</h1><p>Could not load card data. Please check the console for details and try again later.</p>';
         });
 
-    drawButton.addEventListener('click', () => {
+    function drawAndRevealCard() {
         if (cardsData.length === 0) {
             alert('Card data is not loaded yet. Please wait a moment and try again.');
             return;
@@ -41,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Randomly decide if the card is upright or reversed
         const isReversed = Math.random() < 0.5;
 
-        // Populate the card display elements
+        // Populate the card front elements
         cardName.textContent = selectedCard.name;
         cardImage.src = selectedCard.image;
         cardImage.alt = selectedCard.name;
@@ -49,21 +53,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (isReversed) {
             cardName.textContent += ' (Reversed)';
-            uprightMeaningEl.style.display = 'none';
             uprightHeader.style.display = 'none';
-            reversedMeaningEl.style.display = 'block';
+            uprightMeaningEl.style.display = 'none';
             reversedHeader.style.display = 'block';
+            reversedMeaningEl.style.display = 'block';
             reversedMeaningEl.textContent = selectedCard.interpretation.reversed;
         } else {
             cardName.textContent += ' (Upright)';
-            reversedMeaningEl.style.display = 'none';
             reversedHeader.style.display = 'none';
-            uprightMeaningEl.style.display = 'block';
+            reversedMeaningEl.style.display = 'none';
             uprightHeader.style.display = 'block';
+            uprightMeaningEl.style.display = 'block';
             uprightMeaningEl.textContent = selectedCard.interpretation.upright;
         }
 
-        // Show the card display
-        cardDisplay.classList.remove('hidden');
+        // Flip to the front
+        cardFlipper.classList.add('flipped');
+        isCardShowing = true;
+    }
+
+    drawButton.addEventListener('click', () => {
+        if (isCardShowing) {
+            // If a card is already showing, flip it back first
+            cardFlipper.classList.remove('flipped');
+            // Wait for the flip-back animation to complete before drawing a new card
+            setTimeout(drawAndRevealCard, 500); // 500ms is half of the 0.9s transition
+        } else {
+            // If it's the first draw, show the container and draw
+            cardDisplayContainer.classList.remove('hidden');
+            drawAndRevealCard();
+        }
     });
 });

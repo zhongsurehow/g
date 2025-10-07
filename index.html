@@ -13,16 +13,23 @@
 
         <button id="draw-card-btn">Draw a Card</button>
 
-        <div id="card-display" class="hidden">
-            <h2 id="card-name"></h2>
-            <img id="card-image" src="" alt="Tarot Card Image">
-            <div id="card-interpretation">
-                <h3>Description:</h3>
-                <p id="card-description"></p>
-                <h4>Upright Meaning:</h4>
-                <p id="upright-meaning"></p>
-                <h4>Reversed Meaning:</h4>
-                <p id="reversed-meaning"></p>
+        <div id="card-display-container" class="hidden">
+            <div class="card-flipper">
+                <div class="card-face card-back">
+                    <img src="https://via.placeholder.com/300x500/1a1a2e/FFFFFF?text=天人合一" alt="Card Back">
+                </div>
+                <div class="card-face card-front">
+                    <h2 id="card-name"></h2>
+                    <img id="card-image" src="" alt="Tarot Card Image">
+                    <div id="card-interpretation">
+                        <h3>Description:</h3>
+                        <p id="card-description"></p>
+                        <h4 id="upright-header">Upright Meaning:</h4>
+                        <p id="upright-meaning"></p>
+                        <h4 id="reversed-header">Reversed Meaning:</h4>
+                        <p id="reversed-meaning"></p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
