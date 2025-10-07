@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yin-Yang Five Elements Tarot</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="tarot-container">
+        <h1>Yin-Yang Five Elements Tarot</h1>
+        <p>Click the button below to draw a card and receive your guidance.</p>
+
+        <button id="draw-card-btn">Draw a Card</button>
+
+        <div id="card-display" class="hidden">
+            <h2 id="card-name"></h2>
+            <img id="card-image" src="" alt="Tarot Card Image">
+            <div id="card-interpretation">
+                <h3>Description:</h3>
+                <p id="card-description"></p>
+                <h4>Upright Meaning:</h4>
+                <p id="upright-meaning"></p>
+                <h4>Reversed Meaning:</h4>
+                <p id="reversed-meaning"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

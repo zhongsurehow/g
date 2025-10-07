@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "name": "木 (Wood)",
+    "image": "https://via.placeholder.com/200x300/28a745/FFFFFF?text=Wood",
+    "description": "Represents growth, creativity, and new beginnings. The energy of spring, expansion, and vitality.",
+    "interpretation": {
+      "upright": "A time of rapid growth, inspiration, and new opportunities. Embrace your creative impulses and start new projects. A sign of health and vitality.",
+      "reversed": "Feeling stuck, creative blocks, or a lack of growth. Plans may be slow to develop. A need to reconnect with your sources of inspiration."
+    }
+  },
+  {
+    "id": 2,
+    "name": "火 (Fire)",
+    "image": "https://via.placeholder.com/200x300/dc3545/FFFFFF?text=Fire",
+    "description": "Symbolizes passion, transformation, and expression. The energy of summer, action, and enthusiasm.",
+    "interpretation": {
+      "upright": "A period of high energy, passion, and charisma. A time for action, leadership, and expressing your true self. Strong emotional connections and transformation.",
+      "reversed": "Burnout, lack of passion, or destructive anger. Be cautious of impulsive actions. You may be feeling emotionally exhausted or directionless."
+    }
+  },
+  {
+    "id": 3,
+    "name": "土 (Earth)",
+    "image": "https://via.placeholder.com/200x300/8B4513/FFFFFF?text=Earth",
+    "description": "Represents stability, grounding, and nourishment. The energy of the harvest season, patience, and security.",
+    "interpretation": {
+      "upright": "A need for a practical, grounded approach. A time of stability, security, and abundance. Focus on building a solid foundation. Patience will be rewarded.",
+      "reversed": "Feeling unstable, insecure, or stubborn. A warning against being too materialistic or resistant to change. You may feel disconnected from reality."
+    }
+  },
+  {
+    "id": 4,
+    "name": "金 (Metal)",
+    "image": "https://via.placeholder.com/200x300/6c757d/FFFFFF?text=Metal",
+    "description": "Symbolizes logic, structure, and intellect. The energy of autumn, clarity, and discipline.",
+    "interpretation": {
+      "upright": "Clarity of thought, decisiveness, and strong moral principles. A time to create order and structure. Communication is direct and effective.",
+      "reversed": "Mental rigidity, harsh judgment, or communication breakdown. A warning against being overly critical of yourself or others. A time of confusion."
+    }
+  },
+  {
+    "id": 5,
+    "name": "水 (Water)",
+    "image": "https://via.placeholder.com/200x300/007bff/FFFFFF?text=Water",
+    "description": "Represents emotion, intuition, and the subconscious. The energy of winter, deep wisdom, and flow.",
+    "interpretation": {
+      "upright": "Trust your intuition and follow your emotions. A time for introspection, healing, and spiritual connection. Go with the flow rather than resisting.",
+      "reversed": "Emotional turmoil, fear, or feeling overwhelmed. You may be repressing your emotions or feeling emotionally blocked. A need to face your fears."
+    }
+  },
+  {
+    "id": 6,
+    "name": "木生火 (Wood Feeds Fire)",
+    "image": "https://via.placeholder.com/200x300/28a745/dc3545?text=W%20->%20F",
+    "description": "The generating cycle. Inspiration leads to passionate action. Growth fuels transformation.",
+    "interpretation": {
+      "upright": "Your creative ideas are ready to be put into action. A project will gain momentum and lead to success. A very positive sign for new ventures.",
+      "reversed": "Inspiration is not being followed by action. Creative energy is being wasted or suppressed. A disconnect between your ideas and your execution."
+    }
+  },
+  {
+    "id": 7,
+    "name": "火生土 (Fire Creates Earth)",
+    "image": "https://via.placeholder.com/200x300/dc3545/8B4513?text=F%20->%20E",
+    "description": "The generating cycle. Passion and action create a stable, grounded result. Transformation leads to security.",
+    "interpretation": {
+      "upright": "Your hard work and enthusiasm will lead to tangible, stable results. A time of fulfillment and creating a secure foundation for the future.",
+      "reversed": "Actions do not lead to stable outcomes. Burnout leads to instability. A warning against impulsive actions that lack a long-term plan."
+    }
+  },
+  {
+    "id": 8,
+    "name": "金克木 (Metal Chops Wood)",
+    "image": "https://via.placeholder.com/200x300/6c757d/28a745?text=M%20X%20W",
+    "description": "The overcoming cycle. Structure and logic are needed to control and direct growth.",
+    "interpretation": {
+      "upright": "A need for discipline and structure to manage a situation. Time to cut away what is unnecessary. A clear, decisive approach is required for success.",
+      "reversed": "Excessive control is stifling growth. Harsh criticism or self-doubt is causing paralysis. A destructive conflict where logic is used as a weapon."
+    }
+  },
+  {
+    "id": 9,
+    "name": "水克火 (Water Quenches Fire)",
+    "image": "https://via.placeholder.com/200x300/007bff/dc3545?text=W%20X%20F",
+    "description": "The overcoming cycle. Emotion and intuition must temper passion and impulsive action.",
+    "interpretation": {
+      "upright": "A need for emotional control and calm reflection before acting. Intuition should guide your passion. A sign to cool down and think before you speak.",
+      "reversed": "Emotional turmoil is extinguishing your passion. Fear is holding you back from taking action. A situation where emotions have become overwhelming."
+    }
+  },
+  {
+    "id": 10,
+    "name": "阴阳合 (Yin-Yang Harmony)",
+    "image": "https://via.placeholder.com/200x300/000000/FFFFFF?text=Yin-Yang",
+    "description": "Represents balance, harmony, and the integration of opposites. The ultimate symbol of wholeness and interconnectedness.",
+    "interpretation": {
+      "upright": "A state of perfect balance and harmony in your life. Duality is resolved, and you are in alignment with the flow of the universe. A sign of successful partnerships and inner peace.",
+      "reversed": "Imbalance, conflict, and disunity. You may be leaning too heavily on one aspect of your life (e.g., logic over emotion, work over rest). A call to find equilibrium and restore balance."
+    }
+  }
+]
