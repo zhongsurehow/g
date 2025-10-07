@@ -47,10 +47,14 @@ def generate_taijitu_back(width, height, color_bg, color_light, color_dark, outp
     center_x, center_y = width / 2, height / 2
     radius = min(width, height) / 4.5 # Slightly smaller radius for better padding
 
-    # 1. Draw the black half (as a pieslice)
-    draw.pieslice([center_x - radius, center_y - radius, center_x + radius, center_y + radius], 90, 270, fill=color_dark)
-    # 2. Draw the white half
-    draw.pieslice([center_x - radius, center_y - radius, center_x + radius, center_y + radius], -90, 90, fill=color_light)
+    # Bounding box for the main circle
+    main_bbox = (center_x - radius, center_y - radius, center_x + radius, center_y + radius)
+
+    # 1. Draw the white (Yang) half of the circle (a pieslice)
+    draw.pieslice(main_bbox, start=-90, end=90, fill=color_light)
+
+    # 2. Draw the black (Yin) half of the circle
+    draw.pieslice(main_bbox, start=90, end=270, fill=color_dark)
 
     # 3. Draw the S-curve illusion with two overlapping circles
     s_radius = radius / 2

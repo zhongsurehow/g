@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天人合一塔罗 (Tian-Ren He-Yi Tarot)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="tarot-container">
+        <h1>天人合一塔罗</h1>
+        <p class="subtitle">静心凝神，专注于你的问题，然后按下按钮寻求指引。</p>
+
+        <button id="draw-card-btn">抽牌</button>
+
+        <div id="card-display-container" class="hidden">
+            <div class="card-flipper">
+                <div class="card-face card-back">
+                    <img src="images/card_back.png" alt="Card Back">
+                </div>
+                <div class="card-face card-front">
+                    <h2 id="card-name"></h2>
+                    <img id="card-image" src="" alt="Tarot Card Image">
+                    <div id="card-interpretation">
+
+                        <h4>核心象征</h4>
+                        <p id="card-symbolism" class="interp-text"></p>
+
+                        <div id="upright-section">
+                            <h4>正位解读</h4>
+                            <p id="upright-meaning" class="interp-text"></p>
+                            <h5>行动建议:</h5>
+                            <p id="upright-advice" class="interp-text"></p>
+                        </div>
+
+                        <div id="reversed-section">
+                            <h4>逆位解读</h4>
+                            <p id="reversed-meaning" class="interp-text"></p>
+                            <h5>内省问题:</h5>
+                            <p id="reversed-question" class="interp-text"></p>
+                        </div>
+
+                        <p id="card-wisdom" class="interp-text wisdom"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

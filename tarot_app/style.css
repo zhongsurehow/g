@@ -31,10 +31,11 @@ h1 {
     letter-spacing: 2px;
 }
 
-p {
+.subtitle {
     font-size: 1.1em;
     line-height: 1.6;
     margin-bottom: 25px;
+    color: #b0b0b0;
 }
 
 #draw-card-btn {
@@ -57,7 +58,7 @@ p {
 
 #card-display-container {
     perspective: 1500px;
-    margin-top: 20px;
+    margin: 20px auto 0;
     width: 300px;
     height: 500px;
 }
@@ -102,45 +103,65 @@ p {
 .card-front {
     background-color: #1f4068;
     transform: rotateY(180deg);
-    padding: 20px;
+    padding: 15px;
     overflow-y: auto;
     border: 1px dashed #4a5a8a;
-    box-sizing: border-box; /* Ensure padding is included in the element's total width and height */
+    box-sizing: border-box;
 }
 
 #card-name {
     color: #fca311;
-    font-size: 1.4em; /* Slightly smaller to give more space */
+    font-size: 1.3em;
+    margin-top: 0;
     margin-bottom: 10px;
 }
 
 #card-image {
     width: 100%;
-    max-width: 200px; /* Made image slightly smaller */
+    max-width: 180px;
     height: auto;
     border-radius: 10px;
-    border: 3px solid #e0e0e0;
-    margin: 0 auto 10px; /* Reduced margin */
+    border: 2px solid #e0e0e0;
+    margin: 0 auto 10px;
     display: block;
 }
 
 #card-interpretation {
-    padding: 0 5px; /* Add some horizontal padding */
+    padding: 0 5px;
+    text-align: left;
 }
 
-#card-interpretation h3,
 #card-interpretation h4 {
     color: #fca311;
-    margin-top: 10px; /* Reduced margin */
+    margin-top: 12px;
     margin-bottom: 5px;
     border-bottom: 1px solid #4a5a8a;
-    padding-bottom: 5px;
-    font-size: 1.1em;
+    padding-bottom: 3px;
+    font-size: 1em;
+    font-weight: bold;
 }
 
-#card-interpretation p {
-    font-size: 0.95em; /* Slightly smaller to fit more text */
-    text-align: left;
-    line-height: 1.5; /* Improved line spacing */
+#card-interpretation h5 {
+    color: #e0e0e0;
+    margin-top: 8px;
+    margin-bottom: 3px;
+    font-size: 0.95em;
+    font-weight: bold;
+}
+
+#card-interpretation p.interp-text {
+    font-size: 0.9em;
+    line-height: 1.5;
     margin-bottom: 10px;
+    margin-top: 0;
+}
+
+#card-interpretation p.wisdom {
+    font-style: italic;
+    color: #fca311;
+    border-top: 1px solid #4a5a8a;
+    padding-top: 8px;
+    margin-top: 15px;
+    text-align: center;
+    font-size: 0.9em;
 }

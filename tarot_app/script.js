@@ -6,11 +6,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Card front elements
     const cardName = document.getElementById('card-name');
     const cardImage = document.getElementById('card-image');
-    const cardDescription = document.getElementById('card-description');
-    const uprightHeader = document.getElementById('upright-header');
+    const cardSymbolism = document.getElementById('card-symbolism');
+    const cardWisdom = document.getElementById('card-wisdom');
+
+    const uprightSection = document.getElementById('upright-section');
     const uprightMeaningEl = document.getElementById('upright-meaning');
-    const reversedHeader = document.getElementById('reversed-header');
+    const uprightAdviceEl = document.getElementById('upright-advice');
+
+    const reversedSection = document.getElementById('reversed-section');
     const reversedMeaningEl = document.getElementById('reversed-meaning');
+    const reversedQuestionEl = document.getElementById('reversed-question');
 
     let cardsData = [];
     let isCardShowing = false;
@@ -38,33 +43,37 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Randomly select a card
         const randomIndex = Math.floor(Math.random() * cardsData.length);
         const selectedCard = cardsData[randomIndex];
-
-        // Randomly decide if the card is upright or reversed
         const isReversed = Math.random() < 0.5;
 
-        // Populate the card front elements
+        // Populate common elements
         cardName.textContent = selectedCard.name;
         cardImage.src = selectedCard.image;
         cardImage.alt = selectedCard.name;
-        cardDescription.textContent = selectedCard.description;
 
+        // Safely access nested properties
+        const interpretation = selectedCard.interpretation || {};
+        cardSymbolism.textContent = interpretation.symbolism || '';
+        cardWisdom.textContent = interpretation.wisdom || '';
+
+        // Populate upright/reversed sections
         if (isReversed) {
             cardName.textContent += ' (Reversed)';
-            uprightHeader.style.display = 'none';
-            uprightMeaningEl.style.display = 'none';
-            reversedHeader.style.display = 'block';
-            reversedMeaningEl.style.display = 'block';
-            reversedMeaningEl.textContent = selectedCard.interpretation.reversed;
+            uprightSection.style.display = 'none';
+            reversedSection.style.display = 'block';
+
+            const reversedData = interpretation.reversed || {};
+            reversedMeaningEl.textContent = reversedData.meaning || '';
+            reversedQuestionEl.textContent = reversedData.question || '';
         } else {
             cardName.textContent += ' (Upright)';
-            reversedHeader.style.display = 'none';
-            reversedMeaningEl.style.display = 'none';
-            uprightHeader.style.display = 'block';
-            uprightMeaningEl.style.display = 'block';
-            uprightMeaningEl.textContent = selectedCard.interpretation.upright;
+            reversedSection.style.display = 'none';
+            uprightSection.style.display = 'block';
+
+            const uprightData = interpretation.upright || {};
+            uprightMeaningEl.textContent = uprightData.meaning || '';
+            uprightAdviceEl.textContent = uprightData.advice || '';
         }
 
         // Flip to the front
@@ -74,12 +83,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     drawButton.addEventListener('click', () => {
         if (isCardShowing) {
-            // If a card is already showing, flip it back first
+            // Flip back before drawing a new card
             cardFlipper.classList.remove('flipped');
-            // Wait for the flip-back animation to complete before drawing a new card
-            setTimeout(drawAndRevealCard, 500); // 500ms is half of the 0.9s transition
+            setTimeout(drawAndRevealCard, 500);
         } else {
-            // If it's the first draw, show the container and draw
+            // First draw
             cardDisplayContainer.classList.remove('hidden');
             drawAndRevealCard();
         }
